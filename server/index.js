@@ -19,6 +19,21 @@ const client = new MongoClient(uri, {
     serverApi: ServerApiVersion.v1 
 });
 
+async function run(){
+    try{
+        const homesCollection = client.db('hotel-flight-db').collection('homes');
+        const usersCollection = client.db('hotel-flight-db').collection('users');
+
+        // Save user email & generate JWT
+
+        console.log('Database Connected...')
+    } finally{
+
+    }
+}
+
+run().catch(err=>console.error(err))
+
 app.get('/', (req, res)=>{
     res.send(`Server is running...`)
 })
