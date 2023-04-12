@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react'
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import PrimaryButton from '../../Components/Button/PrimaryButton'
 import { AuthContext } from '../../contexts/AuthProvider'
 import { toast } from 'react-hot-toast'
 import SmallSpinner from '../../Components/Spinner/SmallSpinner'
+import { setAuthToken } from '../../api/auth'
 
 const Login = () => {
   const [userEmail, setUserEmail] = useState('');
@@ -20,6 +21,7 @@ const Login = () => {
     login(email, password)
       .then(result => {
         toast.success('Login Successfull...!');
+        setAuthToken(result.user)
         navigate(from, { replace: true })
       }).catch(err => {
         toast.error(err.message)
@@ -32,6 +34,7 @@ const Login = () => {
     signInWithGoogle()
       .then(result => {
         toast.success('Login Successfull...!');
+        setAuthToken(result.user)
         navigate(from, { replace: true })
       })
   }
