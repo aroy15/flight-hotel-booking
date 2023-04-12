@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const jwt = require('jsonwebtoken')
 const {MongoClient, ServerApiVersion, ObjectId} = require('mongodb')
 require('dotenv').config();
 
@@ -25,6 +26,24 @@ async function run(){
         const usersCollection = client.db('hotel-flight-db').collection('users');
 
         // Save user email & generate JWT
+        app.put('/user/:email', async (req, res)=>{
+            const email = req.params.email
+            const user = req.body
+            const filter = {email: email}
+            const options = {upsert: true}
+            const updateDoc = {
+                $set:user,                
+            }
+            const result = await usersCollection.updateOne(filter, updateDoc, options);
+            console.log(result)
+
+            const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+                expiresIn:'1d',                
+            })
+            console.log(token)
+            res.send({result, token})
+        })
+
 
         console.log('Database Connected...')
     } finally{
