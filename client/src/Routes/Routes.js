@@ -7,6 +7,8 @@ import Login from '../Pages/Login/Login';
 import ErrorPage from '../Pages/Shared/ErrorPage';
 import Details from '../Pages/Details';
 import PrivateRoute from './PrivateRoute';
+import ComingSoon from '../Pages/Shared/ComingSoon';
+import SearchResult from '../Pages/SearchResult';
 
 const router = createBrowserRouter([
     {
@@ -29,6 +31,18 @@ const router = createBrowserRouter([
             {
                 path:'/details',
                 element:<PrivateRoute><Details/></PrivateRoute>
+            },
+            {
+                path:'/coming-soon',
+                element:<ComingSoon/>
+            },
+            {
+                path:'/service-details',
+                element:<Details/>
+            },
+            {
+                path:'/search-result',
+                element:<SearchResult/>
             }
         ]
     }
