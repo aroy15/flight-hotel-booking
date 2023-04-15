@@ -5,9 +5,8 @@ import CheckoutCart from '../Components/CheckoutCart';
 import WhosComing from '../Components/WhosComing';
 import Payment from '../Components/Payment';
 import { AuthContext } from '../contexts/AuthProvider';
-import { Link } from 'react-router-dom';
-import PrimaryButton from '../Components/Button/PrimaryButton';
-import { ArrowRightIcon, BeakerIcon, CheckBadgeIcon, ChevronDownIcon, HomeIcon, StarIcon, UserIcon } from '@heroicons/react/20/solid';
+import { saveBookings } from '../api/bookings';
+import toast from 'react-hot-toast'
 
 const Checkout = () => {
   const { user } = useContext(AuthContext);
@@ -33,7 +32,7 @@ const Checkout = () => {
   const [bookingData, setBookingData] = useState({
     homeId: homeData._id,
     hostEmail: homeData?.host?.email,
-    message: 'hello message',
+    message: '',
     totalPrice: parseFloat(homeData?.host?.price) + 31,
     guestEmail: user?.email
   })
@@ -42,6 +41,16 @@ const Checkout = () => {
 
   const handleBooking = () => {
     console.log(bookingData)
+    
+    saveBookings(bookingData)
+    .then(data=>{
+      console.log(data)
+      toast.success("booking successful!")
+    })
+    .catch(err=>{
+      console.log(err)
+      toast.error(err.message)
+    })
   }
 
   return (
