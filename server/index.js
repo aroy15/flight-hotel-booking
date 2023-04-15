@@ -24,6 +24,7 @@ async function run(){
     try{
         const homesCollection = client.db('hotel-flight-db').collection('homes');
         const usersCollection = client.db('hotel-flight-db').collection('users');
+        const bookingsCollection = client.db('hotel-flight-db').collection('bookings');
 
         // Save user email & generate JWT
         app.put('/user/:email', async (req, res)=>{
@@ -42,6 +43,14 @@ async function run(){
             })
             console.log(token)
             res.send({result, token})
+        })
+
+        // Save a booking
+        app.post('/bookings', async(req, res)=>{
+            const bookingData = req.body
+            const result = await bookingsCollection.insertOne(bookingData)
+            console.log(result)
+            res.send(result)
         })
 
 
