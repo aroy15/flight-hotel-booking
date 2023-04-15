@@ -9,6 +9,7 @@ import Details from '../Pages/Details';
 import PrivateRoute from './PrivateRoute';
 import ComingSoon from '../Pages/Shared/ComingSoon';
 import SearchResult from '../Pages/SearchResult';
+import Checkout from '../Pages/Checkout';
 
 const router = createBrowserRouter([
     {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
             {
                 path:'/search-result',
                 element:<SearchResult/>
+            },
+            {
+                path:'/checkout',
+                element:<PrivateRoute><Checkout/></PrivateRoute>
             }
         ]
     }

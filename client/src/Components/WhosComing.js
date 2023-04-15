@@ -1,6 +1,6 @@
 import React from 'react'
 
-const WhosComing = ({ setSelectedIndex, host }) => {
+const WhosComing = ({ setSelectedIndex, host, bookingData, setBookingData }) => {
   console.log(host)
   return (
     <>
@@ -28,6 +28,8 @@ const WhosComing = ({ setSelectedIndex, host }) => {
         id=''
         cols='60'
         rows='10'
+        onChange={(e)=>setBookingData({...bookingData, message:e.target.value})}
+        value={bookingData.message}
       ></textarea>
       <button
         className='py-2 px-4 rounded-md hover:text-gray-100 bg-gradient-to-r from-emerald-500 to-lime-500 text-white'
