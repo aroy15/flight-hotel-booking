@@ -53,6 +53,19 @@ async function run(){
             res.send(result)
         })
 
+        // Get all bookings
+        app.get('/bookings', async(req,res)=>{
+            let query = {}
+            const email = req.query.email
+            if(email){
+                query = {
+                    guestEmail:email
+                }                
+            }
+            const bookings = await bookingsCollection.find(query).toArray()
+            console.log(bookings)
+            res.send(bookings)
+        })
 
         console.log('Database Connected...')
     } finally{
