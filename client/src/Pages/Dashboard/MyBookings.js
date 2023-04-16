@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../contexts/AuthProvider';
+import { getAllBookingsByEmail } from '../../api/bookings';
+import Spinner from '../../Components/Spinner/Spinner';
 
 const MyBookings = () => {
+    const {user} = useContext(AuthContext)
+    const [loading, setLoading] = useState(true)
+    const [bookings, setBookings] = useState([])
+
+    useEffect(()=>{
+        getAllBookingsByEmail(user?.email)
+        .then(data=>{
+            console.log(data)
+            setBookings(data)
+            setLoading(false)
+        })
+        .catch(err=> {
+            console.log(err);
+            setLoading(false)
+        })
+    }, [user])
     return (
+        <>
+        {loading? <Spinner/> :
         <div className='container mx-auto px-4 sm:px-8'>
             <div className='py-8'>
                 <div className='-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto'>
@@ -48,13 +69,13 @@ const MyBookings = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                {bookings.map((booking, i)=><tr key={i}>
                                     <td
                                         className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800'
                                     >
                                         <div className='flex gap-4 items-center'>
-                                            <span><img className='w-16 h-16 rounded-md' src="https://i.ibb.co/6DtxR25/profile.jpg" alt="profile" /></span>
-                                            <span>Jean Marc</span>
+                                            <span><img className='w-16 h-16 rounded-md' src={user?.photoURL} alt="profile" /></span>
+                                            <span>{user?.displayName}</span>
                                         </div>
                                     </td>
                                     <td
@@ -65,7 +86,7 @@ const MyBookings = () => {
                                     <td
                                         className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800'
                                     >
-                                        $95
+                                        ${booking?.totalPrice}
                                     </td>
                                     <td
                                         className='px-5 py-3 bg-white border-b border-gray-200 text-gray-800'
@@ -82,14 +103,15 @@ const MyBookings = () => {
                                     >
                                         <button className='bg-red-200 rounded-full px-3'>Cancel</button>
                                     </td>
-                                </tr>
+                                </tr>)}
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-        </div>
+        </div>}
+        </>
     );
 };
 
