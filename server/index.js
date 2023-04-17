@@ -45,6 +45,15 @@ async function run(){
             res.send({result, token})
         })
 
+        // get a single user by email
+        app.get('/user/:email', async (req, res)=>{
+            const email  = req.params.email
+            const query = {email}
+            const user = await usersCollection.findOne(query)
+            console.log(user)
+            res.send(user)
+        })
+
         // Save a booking
         app.post('/bookings', async(req, res)=>{
             const bookingData = req.body
