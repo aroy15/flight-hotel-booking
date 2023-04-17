@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Bars3Icon } from '@heroicons/react/24/solid';
 import UserMenu from './UserMenu';
 
-const Sidebar = () => {
+const Sidebar = ({role, loading}) => {
     const { user, logout } = useContext(AuthContext)
     const [isActive, setActive] = useState(true)
     const handleToggle = () =>{
