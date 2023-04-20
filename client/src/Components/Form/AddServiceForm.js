@@ -1,13 +1,14 @@
 import { CalendarIcon } from '@heroicons/react/20/solid'
 import React from 'react'
 import DatePicker from 'react-datepicker'
+import SmallSpinner from '../Spinner/SmallSpinner'
 
-const AddServiceForm = () => {
+const AddServiceForm = ({handleSubmit, arrivalDate, setArrivalDate, departureDate, setDepartureDate, loading}) => {
   return (
     <>
       <div className='flex justify-center mt-6'>
         <div className='w-full max-w-md p-8 space-y-3 text-gray-800 rounded-xl bg-gray-50'>
-          <form className='space-y-6 ng-untouched ng-pristine ng-valid'>
+          <form onSubmit={handleSubmit} className='space-y-6 ng-untouched ng-pristine ng-valid'>
             <div className='space-y-1 text-sm'>
               <label htmlFor='location' className='block text-gray-600'>
                 Location
@@ -39,7 +40,7 @@ const AddServiceForm = () => {
               <div className='shadow-md rounded-md my-2 p-3 flex justify-between items-center'>
                 <div>
                   <p className='block text-sm text-gray-500'>From</p>
-                  <DatePicker selected={new Date()} className='w-2/3' />
+                  <DatePicker selected={arrivalDate} onChange={data=>setArrivalDate(data)} className='w-2/3' />
                 </div>
 
                 <CalendarIcon className='h5 w-5' />
@@ -47,7 +48,7 @@ const AddServiceForm = () => {
               <div className='shadow-md rounded-md my-2 p-3 flex justify-between items-center'>
                 <div>
                   <p className='block text-sm text-gray-500'>To</p>
-                  <DatePicker selected={new Date()} className='w-2/3' />
+                  <DatePicker selected={departureDate} onChange={data=>setDepartureDate(data)} className='w-2/3' />
                 </div>
 
                 <CalendarIcon className='h5 w-5' />
@@ -145,7 +146,7 @@ const AddServiceForm = () => {
               type='submit'
               className='block w-full p-3 text-center font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-gradient-to-r from-emerald-500 to-lime-500 hover:bg-gray-200 hover:text-gray-700 focus:shadow-outline focus:outline-none'
             >
-              Save & Continue
+              {loading? <SmallSpinner/> : 'Save & Continue'}
             </button>
           </form>
         </div>

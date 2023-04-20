@@ -14,6 +14,10 @@ import DashboardLayout from '../Layout/DashboardLayout';
 import Welcome from '../Pages/Dashboard/Welcome';
 import MyBookings from '../Pages/Dashboard/MyBookings';
 import BecomeAHost from '../Pages/Dashboard/BecomeAHost';
+import AllUsers from '../Pages/Dashboard/AllUsers';
+import AllBookings from '../Pages/Dashboard/AllBookings';
+import AddHome from '../Pages/Dashboard/AddHome';
+import ManageHomes from '../Pages/Dashboard/ManageHomes';
 
 const router = createBrowserRouter([
     {
@@ -70,6 +74,22 @@ const router = createBrowserRouter([
             {
                 path:'become-host',
                 element:<BecomeAHost/>
+            },
+            {
+                path:'all-users',
+                element:<AllUsers/>
+            },
+            {
+                path:'all-bookings',
+                element:<AllBookings/>
+            },
+            {
+                path:'add-home',
+                element:<AddHome/>
+            },
+            {
+                path:'manage-homes',
+                element:<ManageHomes/>
             }
         ]
     }
